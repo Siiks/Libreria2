@@ -1,0 +1,18 @@
+<table class="table">
+    <tr>
+        <th scope="col">DNI</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Segundo Apellido</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Email</th>
+      </tr>
+    <tr *ngFor = "let autor of autors">
+        <td scope="row">{{autor.dni}}</td>
+        <td scope="row">{{autor.nombre}}</td>
+        <td scope="row">{{autor.apellido1}}</td>
+        <td scope="row">{{autor.apellido2}}</td>
+        <td scope="row">{{autor.telefono}}</td>
+        <td scope="row">{{autor.email}}</td>
+    </tr>
+</table>

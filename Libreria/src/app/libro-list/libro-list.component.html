@@ -1,0 +1,16 @@
+<table class="table">
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Titulo</th>
+        <th scope="col">Edicion</th>
+        <th scope="col">Autor</th>
+        <th scope="col">Categoria</th>
+      </tr>
+    <tr *ngFor = "let libro of libros">
+        <td scope="row">{{libro.id}}</td>
+        <td scope="row">{{libro.titulo}}</td>
+        <td scope="row">{{libro.edicion}}</td>
+        <td scope="row">{{libro.autor}}</td>
+        <td scope="row">{{libro.categoria}}</td>
+    </tr>
+</table>
