@@ -1,0 +1,13 @@
+nav ul{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+li{
+    margin-left: 25px;
+}
+.search_form{
+    display: flex;
+    justify-content: flex-end;
+    flex-direction: column
+}

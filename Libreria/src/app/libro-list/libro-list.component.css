@@ -1,0 +1,57 @@
+body{
+    color: #8a909d;
+    background:#eee;
+}
+.btn{
+    color: green;
+    background-color: inherit;
+    border-color: green;
+    margin: 5px;
+}
+.btn:hover{
+    color: white;
+    background-color: green;
+}
+.btn:active{
+    color: white;
+    background-color: green;
+}
+@media (min-width: 992px){
+    .card-default {
+        margin-bottom: 2rem;
+    }
+}
+
+
+.card-default .card-header {
+    padding-top: 1.875rem;
+    padding-bottom: 1rem;
+    display: flex;
+    justify-content: space-between;
+    background-color: transparent;
+    border-bottom: none;
+    flex-wrap: wrap;
+    text-transform: capitalize;
+}
+
+.p-4 {
+    padding: 1.25rem !important;
+}
+a{
+    text-decoration:none;    
+}
+i{
+    margin: 4px;
+}
+div.pos-relative.px-3.py-3{
+    margin-left: 50px;
+    padding: 0px !important;
+    color: green;
+}
+div.pos-relative.px-3.py-3:hover{
+    color: inherit;
+    cursor: pointer;
+}
+.colorCategoria{
+    color: rgb(0, 81, 255) !;
+}

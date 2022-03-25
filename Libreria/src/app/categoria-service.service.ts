@@ -12,7 +12,7 @@ export class CategoriaService{
   private categoriasUrl: string;
 
   constructor(private http: HttpClient) {
-    this.categoriasUrl = environment.apiBaseUrl;
+    this.categoriasUrl = 'http://localhost:8080';
    }
    public findAll(): Observable<Categoria[]>{
     return this.http.get<Categoria[]>(`${this.categoriasUrl}/categoria/all`);

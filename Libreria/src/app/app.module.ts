@@ -9,6 +9,7 @@ import { LibroListComponent } from './libro-list/libro-list.component';
 import { AutorFormComponent } from './autor-form/autor-form.component';
 import { HttpClientModule } from '@angular/common/http';
 import { AutorService } from './autor-service.service';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -20,7 +21,8 @@ import { AutorService } from './autor-service.service';
   imports: [
     BrowserModule,
     AppRoutingModule,
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

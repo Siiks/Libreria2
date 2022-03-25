@@ -12,7 +12,7 @@ export class AutorService {
   private autorsUrl: string;
 
   constructor(private http: HttpClient) {
-    this.autorsUrl = environment.apiBaseUrl;
+    this.autorsUrl = 'http://localhost:8080';
    }
 
    public findAll(): Observable<Autor[]>{

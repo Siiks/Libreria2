@@ -1,16 +1,174 @@
-<table class="table">
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Titulo</th>
-        <th scope="col">Edicion</th>
-        <th scope="col">Autor</th>
-        <th scope="col">Categoria</th>
-      </tr>
-    <tr *ngFor = "let libro of libros">
-        <td scope="row">{{libro.id}}</td>
-        <td scope="row">{{libro.titulo}}</td>
-        <td scope="row">{{libro.edicion}}</td>
-        <td scope="row">{{libro.autor}}</td>
-        <td scope="row">{{libro.categoria}}</td>
-    </tr>
-</table>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/MaterialDesign-Webfont/5.3.45/css/materialdesignicons.css" integrity="sha256-NAxhqDvtY0l4xn+YVa6WjAcmd94NNfttjNsDmNatFVc=" crossorigin="anonymous" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v6.1.0/css/all.css">
+<div id="main-container">
+<div class="content contact-list">
+        <div class="card card-default">
+            <div class="card-header align-items-center px-3 px-md-5">
+                <h2>Libros <span *ngIf="categoriaActual">{{categoriaActual}}</span></h2>
+                <button type="button" class="btn btn-primary" (click)="onOpenModal(null, 'add')">Añadir libro</button>
+            </div>
+            <table>
+               <th id="categoria" style="width:20%">
+               <h4 class="px-3 py-4 op-5 m-0">
+                Categorias
+               </h4>
+               <div class="pos-relative px-3 py-3" *ngFor="let categoria of categorias">
+                <p><a class="colorCategorias" (click)="findLibroByCategoriaId(categoria)" >{{categoria.descripcion}}</a></p>
+             </div>  
+            </th>
+            <th id="cards">   
+            <div class="card-body px-3 px-md-5" >
+                <div class="row">
+                    <div class="col-lg-6 col-xl-4 col-md-6 col-sm-12" *ngFor="let libro of libros"id="mover">
+                        <div class="card card-default p-4" >
+                                <div class="media-body">
+                                    <h5 class="mt-0 mb-2 text-dark">{{libro.titulo}}</h5>
+                                    <ul class="list-unstyled text-smoke text-smoke">
+                                        <li class="d-flex">
+                                            <i class="fas fa-user"></i>
+                                            <span>Autor: {{libro.autor}}</span>
+                                        </li>
+                                        <li class="d-flex">
+                                            <i class="fas fa-icons"></i>
+                                            <span>Categoria: {{libro.categoria}}</span>
+                                        </li>
+                                        <li class="d-flex">
+                                            <i class="fas fa-book"></i>
+                                            <span>Edicion: {{libro.edicion}}</span>
+                                        </li>
+                                    </ul>
+                                    <a (click)="onOpenModal(libro, 'edit')" class="btn btn-primary tooltips" data-placement="top" data-original-title="Edit"><i class="fa fa-pencil"></i> </a>
+                                    <a (click)="onOpenModal(libro, 'delete')" class="btn btn-secondary tooltips" data-placement="top" data-original-title="Delete"><i class="fa fa-times"></i></a>
+                                </div>
+                        </div>  
+                    </div>
+                </div>
+         </div>
+      </th> </table> </div>
+      
+        <!--
+
+         UPDATE MODAL
+
+        -->
+        <div class="modal fade" id="updateLibroModal" tabindex="-1" role="dialog" aria-labelledby="libroEditModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+               <div class="modal-content">
+                  <div class="modal-header">
+                     <h5 class="modal-title" id="updateLibroModalLabel">Editar Libro {{editLibro?.titulo}}</h5>
+                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                     </button>
+                  </div>
+                  <div class="modal-body">
+                     <form #editForm="ngForm">
+                        <div class="form-group">
+                           <label for="name">Id</label>
+                           <input type="text" ngModel="{{editLibro?.id}}" name="id" class="form-control" id="id" aria-describedby="emailHelp">
+                        </div>  
+                        <div class="form-group">
+                           <label for="name">Titulo</label>
+                           <input type="text" ngModel="{{editLibro?.titulo}}" name="titulo" class="form-control" id="titulo" aria-describedby="emailHelp" placeholder="Titulo">
+                        </div>
+                        <div class="form-group">   
+                           <label for="number">Edicion</label>
+                           <input type="number" ngModel="{{editLibro?.edicion}}" name="edicion" class="form-control" id="edicion" placeholder="Edicion">
+                        </div>
+                        <div class="form-group">
+                           <label for="text">Autor</label>
+                           <select class="form-control" aria-label="Default select example" ngModel="{{editLibro?.autor}}" name="autor">
+                              <option *ngFor="let autor of autores" id="autor">{{autor.nombre + ' ' + autor.apellido1}}</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                           <label for="text">Categoria</label><br>
+                           <select class="form-control" aria-label="Default select example" name="categoria" ngModel="{{editLibro?.categoria}}">
+                              <option *ngFor="let categoria of categorias" id="categoria">{{categoria.descripcion}}</option>
+                            </select>
+                        </div>   
+                        <div class="modal-footer">
+                           <button type="button" id="" data-dismiss="modal" class="btn btn-secondary">Cerrar</button>
+                           <button (click)="updateLibro(editForm.value)" data-dismiss="modal" class="btn btn-primary" >Guardar</button>
+                        </div>
+                     </form>
+                  </div>
+               </div>
+            </div>
+          </div>
+        
+ </div>
+ <!--
+      ADD MODAL
+
+        -->
+ <div class="modal fade" id="addLibroModal" tabindex="-1" role="dialog" aria-labelledby="addLibroModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+         <div class="modal-header">
+            <h5 class="modal-title" id="addLibroModalLabel">Add Libro</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+            </button>
+         </div>
+         <div class="modal-body">
+            <form #addForm="ngForm" (ngSubmit)="addLibro(addForm)">
+            <div class="form-group">
+               <label for="titulo">Titulo</label>
+               <input type="text" ngModel name="titulo" class="form-control" id="titulo" placeholder="Titulo" required>
+            </div>
+            <div class="form-group">
+               <label for="name">Autor</label>
+               <select class="form-control" aria-label="Default select example" ngModel="{{editLibro?.autor}}" name="autor">
+                  <option *ngFor="let autor of autores" id="autor">{{autor.nombre + ' ' + autor.apellido1}}</option>
+                </select>
+            </div>
+            <div class="form-group">
+               <label for="number">Edicion</label>
+               <input type="number" ngModel name="edicion" class="form-control" id="edicion" placeholder="Edicion" required>
+            </div>
+            <div class="form-group">
+               <label for="phone">Categoria</label>
+               <select class="form-control" aria-label="Default select example" name="categoria" ngModel="{{editLibro?.categoria}}" required>
+                  <option *ngFor="let categoria of categorias" id="categoria">{{categoria.descripcion}}</option>
+                </select>
+            </div>
+            <div class="modal-footer">
+               <button type="button" id="add-libro-form" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+               <button [disabled]="addForm.invalid" type="submit" class="btn btn-primary" >Guardar</button>
+            </div>
+            </form>
+         </div>
+      </div>
+    </div>
+    </div>
+
+<!--
+
+         DELETE MODAL
+
+        -->
+
+    <div class="modal fade" id="deleteLibroModal" tabindex="-1" role="dialog" aria-labelledby="deleteModelLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+           <div class="modal-content">
+              <div class="modal-header">
+                 <h5 class="modal-title" id="deleteModelLabel">Borrar Libro</h5>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                 <span aria-hidden="true">&times;</span>
+                 </button>
+              </div>
+              <div class="modal-body">
+                 <p>Seguro que quieres borrar {{deleteLibroAtt?.titulo}}?</p>
+                 <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">No</button>
+                    <button (click)="deleteLibro(deleteLibroAtt?.id)" class="btn btn-danger" data-dismiss="modal">Yes</button>
+                 </div>
+              </div>
+           </div>
+        </div>
+      </div>
+</div>
+
+
+ 
+    

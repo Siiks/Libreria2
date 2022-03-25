@@ -2,7 +2,6 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Libro } from 'src/classes/libro';
-import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +10,7 @@ export class LibroService {
   private librosUrl: string;
 
   constructor(private http: HttpClient) {
-    this.librosUrl = environment.apiBaseUrl;
+    this.librosUrl = 'http://localhost:8080';
    }
    public findAll(): Observable<Libro[]>{
     return this.http.get<Libro[]>(`${this.librosUrl}/libro/all`);
@@ -27,5 +26,8 @@ export class LibroService {
   }
   public deleteLibro(id: number): Observable<Libro>{
     return this.http.delete<Libro>(`${this.librosUrl}/libro/delete/${id}`)
+  }
+  public findLibroByCategoriaId(id: any): Observable<Libro[]>{
+    return this.http.get<Libro[]>(`${this.librosUrl}/libro/categoria/${id}`)
   }
 }

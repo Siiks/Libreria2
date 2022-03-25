@@ -9,6 +9,7 @@ import { Autor } from 'src/classes/autor';
 export class AutorListComponent implements OnInit {
 
   autors: Autor[];
+  autor: Autor;
   constructor(private autorService: AutorService) {
    }
 
