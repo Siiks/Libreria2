@@ -1,27 +1,51 @@
 package com.example.libreria.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.context.annotation.EnableMBeanExport;
+import lombok.Setter;
+import org.springframework.lang.Nullable;
 
 import javax.persistence.*;
-import javax.swing.*;
-import java.util.ArrayList;
-import java.util.List;
+import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Libro {
+public class Libro implements Serializable {
+
+
+    @Getter
+    @Setter
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    @NotNull
+    private Long id;
+
+    @Getter
+    @Setter
+    @NotNull
     private String titulo;
+
+    @Getter
+    @Setter
+    @NotNull
     private int edicion;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "autor_dni")
+
+    @Getter
+    @Setter
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "idAutor")
+    @Nullable
     private Autor autor;
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "categoria_id")
+
+    @Getter
+    @Setter
+    @ManyToOne
+    @JoinColumn(name = "idCategoria")
+    @NotNull
     private Categoria categoria;
+
+
 }
